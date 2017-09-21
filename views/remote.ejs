@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta charset="utf-8" />
+    <title>远程连接工具</title>
+
+    <meta name="description" content="overview &amp; stats" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+
+    <!-- bootstrap & fontawesome -->
+    <link rel="stylesheet" href="/stylesheets/bootstrap.min.css" />
+    <link rel="stylesheet" href="/stylesheets/font-awesome/4.5.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="/stylesheets/ace.min.css" />
+    <link rel="stylesheet" href="/stylesheets/ace-rtl.min.css" />
+    <link rel="stylesheet" href="/stylesheets/ace-skins.min.css" />
+
+    <style type="text/css">
+        body {
+            overflow: hidden;
+        }
+
+        .tab-content {
+            border: none;
+            padding: 0px 0px;
+        }
+
+        .lable {
+            text-align: right;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .input-sm {
+            height: 30px;
+            padding: 5px 10px;
+            font-size: 12px;
+            line-height: 1.5;
+            border-radius: 3px;
+        }
+
+        .right {
+            position: absolute;
+            right: 10px;
+        }
+    </style>
+    <script src="/javascripts/main/jquery-2.1.4.min.js"></script>
+    <script src="/javascripts/main/bootstrap.min.js"></script>
+    <script src="/javascripts/main/jquery.hotkeys.js"></script>
+    <script src="/javascripts/main/remote/remote.js"></script>
+</head>
+
+<body>
+    <div class="col-xs-12">
+        <!-- PAGE CONTENT BEGINS -->
+        <ul class="nav nav-tabs" role="tablist">
+            <div class="dropdown" style="display: inline-block;">
+                <button type="button" class="btn dropdown-toggle" id="add-tab" data-toggle="dropdown" style="height: 36px;">
+                <span class="fa fa-plus"></span>
+              </button>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                    <li role="presentation">
+                        <a role="menuitem" tabindex="-1" href="#" data-toggle="modal" data-target="#add-ssh"><span>SSH</span><i class="right">Ctrl-Shift-X</i></a>
+                    </li>
+                    <li role="presentation">
+                        <a role="menuitem" tabindex="-1" href="#" data-toggle="modal" data-target="#add-telnet"><span>Telnet</span><i class="right">Ctrl-Shift-Z</i></a>
+                    </li>
+                    <li role="presentation" class="divider"></li>
+                    <li role="presentation">
+                        <a role="menuitem" tabindex="-1" href="#" id="add-mstsc">MSTSC</a>
+                    </li>
+                </ul>
+            </div>
+        </ul>
+        <div class="tab-content">
+        </div>
+        <!-- PAGE CONTENT ENDS -->
+    </div>
+
+    <!-- 模态框（Modal） -->
+    <div class="modal fade" id="add-ssh" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="top:10px;">
+        <div class="modal-dialog" style="width:500px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h5 class="modal-title">添加SSH连接</h5>
+                </div>
+                <div class="modal-body">
+
+                    <form class="form-horizontal bv-form" role="form">
+                        <div class="form-group">
+                            <label class="col-xs-4 control-label">IP地址:</label>
+                            <div style="col-xs-8">
+                                <input type="text" class="input-sm" id="ssh-ip"></input>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-4 control-label">用户名:</label>
+                            <div style="col-xs-8">
+                                <input type="text" class="input-sm" id="ssh-username"></input>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-4 control-label">端 口:</label>
+                            <div style="col-xs-8">
+                                <input type="text" class="input-sm" id="ssh-port"></input>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary" id="ssh-submit">添加</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal -->
+    </div>
+    <div class="modal fade" id="add-telnet" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="top:10px;">
+        <div class="modal-dialog" style="width:500px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h5 class="modal-title">添加telnet连接</h5>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal bv-form" role="form">
+                        <div class="form-group">
+                            <label class="col-xs-4 control-label">IP地址:</label>
+                            <div style="col-xs-8">
+                                <input type="text" class="input-sm" id="telnet-ip"></input>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-4 control-label">端 口:</label>
+                            <div style="col-xs-8">
+                                <input type="text" class="input-sm" id="telnet-port"></input>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary" id="telnet-submit">添加</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal -->
+    </div>
+
+</body>
